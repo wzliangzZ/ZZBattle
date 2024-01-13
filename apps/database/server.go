@@ -6,17 +6,15 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 )
 
 var DB_ROOT, DB_PWD, DB_PORT, DB_HOST, DB_NAME, DB_TIMEOUT string
 var DSN string
 
 func init() {
-	err := godotenv.Load(".db_env")
+	err := godotenv.Load(".env")
 	if err != nil {
-		logrus.Fatalln("Error loading .db_env file")
+		logrus.Fatalln("Error loading .env file -- database")
 	}
 	DB_ROOT = os.Getenv("DB_ROOT")
 	DB_PWD = os.Getenv("DB_PWD")
@@ -29,11 +27,11 @@ func init() {
 }
 
 func main() {
-	db, err := gorm.Open(mysql.Open(DSN), &gorm.Config{})
-	if err != nil {
-		logrus.Panic("连接数据库失败, error=" + err.Error())
-		return
-	}
-	//延时关闭数据库连接
-	fmt.Println(db)
+	// db, err := gorm.Open(mysql.Open(DSN), &gorm.Config{})
+	// if err != nil {
+	// 	logrus.Panic("连接数据库失败, error=" + err.Error())
+	// 	return
+	// }
+	// //延时关闭数据库连接
+	// fmt.Println(db)
 }
