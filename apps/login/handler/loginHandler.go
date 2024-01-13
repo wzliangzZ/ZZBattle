@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"log"
+	"github.com/sirupsen/logrus"
 
 	"github.com/gin-gonic/gin"
 	"github.com/wzliangzZ/ZZBatle/apps/login/models"
@@ -16,11 +16,20 @@ func NewLoginHandler() *LoginHandler {
 
 func (h *LoginHandler) HandlerFunc(c *gin.Context) {
 	var user models.LoginUser
-	c.Bind(&user)
-	log.Printf("user %s was connected!", user.Name)
-
-	c.JSON(200, gin.H{
-		"code": 200,
-		"msg":  "ok",
-	})
+	if err := c.Bind(&user); err != nil {
+		c.JSON(400, gin.H{
+			"error": err.Error(),
+		})
+		logrus.Errorf("bind user error: %v", err)
+		return
+	}
+	loginOrRegister(&user)
+	logrus.Infof("user %s is connected!", user.Name)
 }
+
+func loginOrRegister(user *models.LoginUser)  {
+	
+}
+
+
+
