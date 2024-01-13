@@ -2,15 +2,9 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"github.com/wzliangzZ/ZZBatle/apps/login/handler"
 )
-
-func init() {
-	// 加载.env文件
-	godotenv.Load(".env")
-}
 
 func main() {
 	r := gin.New()
